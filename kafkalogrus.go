@@ -22,7 +22,7 @@ type KafkaLogrusHook struct {
 }
 
 // NewKafkaLogrusHook creates a new KafkaHook
-func NewKafkaLogrusHook(id string,
+func NewKafkaLogrusHook(
 	levels []logrus.Level,
 	formatter logrus.Formatter,
 	brokers []string,
