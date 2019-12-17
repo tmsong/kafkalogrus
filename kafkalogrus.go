@@ -13,7 +13,6 @@ import (
 
 // KafkaLogrusHook is the primary struct
 type KafkaLogrusHook struct {
-	id             string
 	defaultTopic   string
 	injectHostname bool
 	hostname       string
@@ -61,7 +60,6 @@ func NewKafkaLogrusHook(id string,
 	}
 
 	hook := &KafkaLogrusHook{
-		id,
 		defaultTopic,
 		injectHostname,
 		hostname,
@@ -71,11 +69,6 @@ func NewKafkaLogrusHook(id string,
 	}
 
 	return hook, nil
-}
-
-// Id returns the internal ID of the hook
-func (hook *KafkaLogrusHook) Id() string {
-	return hook.id
 }
 
 // Levels is required to implement the hook interface from logrus
@@ -96,8 +89,8 @@ func (hook *KafkaLogrusHook) Fire(entry *logrus.Entry) error {
 	partitionKey = sarama.ByteEncoder(b)
 
 	if hook.injectHostname {
-		if _, ok := entry.Data["host"]; !ok {
-			entry.Data["host"] = hook.hostname
+		if _, ok := entry.Data["hostname"]; !ok {
+			entry.Data["hostname"] = hook.hostname
 		}
 	}
 
